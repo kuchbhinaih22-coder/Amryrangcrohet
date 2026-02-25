@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Amryrang Crochet</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1 class="logo">Amryrang Crochet</h1>
+
+<div class="products">
+
+  <div class="card">
+    <img src="product1.jpg">
+    <h3>Chiklis</h3>
+    <p>₹499</p>
+    <button onclick="addToCart('Chiklis',499)">Add to Cart</button>
+  </div>
+
+  <div class="card">
+    <img src="product2.jpg">
+    <h3>Mang</h3>
+    <p>₹449</p>
+    <button onclick="addToCart('Mang',449)">Add to Cart</button>
+  </div>
+
+  <div class="card">
+    <img src="product3.jpg">
+    <h3>Purple Whale</h3>
+    <p>₹199</p>
+    <button onclick="addToCart('Purple Whale',199)">Add to Cart</button>
+  </div>
+
+</div>
+
+<div class="cart">
+  <h2>Cart</h2>
+  <ul id="cartItems"></ul>
+
+  <select id="shipping">
+    <option value="70">India - ₹70</option>
+    <option value="250">International - ₹250</option>
+  </select>
+
+  <p id="extra"></p>
+  <h3 id="total">Total: ₹0</h3>
+  <button onclick="checkout()">Checkout</button>
+</div>
+
+<script>
+let cart = [];
+let total = 0;
+
+function addToCart(name,price){
+  cart.push(price);
+  total += price;
+  document.getElementById("cartItems").innerHTML += "<li>"+name+" - ₹"+price+"</li>";
+  calculateTotal();
+}
+
+function calculateTotal(){
+  let shipping = parseInt(document.getElementById("shipping").value);
+  let extra = 0;
+
+  if(cart.length > 1){
+    extra = (cart.length - 1) * 50;
+  }
+
+  let finalTotal = total + shipping + extra;
+
+  document.getElementById("extra").innerHTML = "Extra item charge: ₹"+extra;
+  document.getElementById("total").innerHTML = "Total: ₹"+finalTotal;
+}
+
+document.getElementById("shipping").addEventListener("change",calculateTotal);
+
+function checkout(){
+  alert("Payment integration baad me add karenge (Razorpay).");
+}
+</script>
+
+</body>
+    </html>
